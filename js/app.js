@@ -1,6 +1,20 @@
 /*
  * Create a list that holds all of your cards
  */
+var cards = [{
+    id: 1,
+    img: diamond,
+    match: 3},
+    {id: 2,
+    img: star,
+    match: 4},
+    {id: 3,
+     img: diamond,
+     match: 1},
+    {id: 4,
+      img: diamdond,
+      match: 2
+    }]
 
 
 /*
