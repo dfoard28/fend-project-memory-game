@@ -3,19 +3,22 @@
  */
 var cards = [{
     id: 1,
-    img: diamond,
     match: 3},
     {id: 2,
-    img: star,
     match: 4},
     {id: 3,
-     img: diamond,
      match: 1},
     {id: 4,
-      img: diamdond,
       match: 2
     }]
 
+$('.start').click(function(){
+    shuffle(cards);
+    console.log(cards);
+    cards.forEach(function(){
+        $('li').addClass('.show');  
+    })
+})
 
 /*
  * Display the cards on the page
