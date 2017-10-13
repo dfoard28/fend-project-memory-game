@@ -1,38 +1,11 @@
-/*
- * Create a list that holds all of your cards
- */
-var cards = [{
-        id: 1,
-        icon: 'fa fa-paper-plane-o',
-        match: 3},
-    {
-        id: 2,
-        icon: 'fa fa-diamond',
-        match: 4
-    },
-    {
-        id: 3,
-        icon:'fa fa-paper-plane-o',
-        match: 1
-    },
-    {   
-        id: 4,
-        icon: 'fa fa-diamond',
-        match: 2
-    }]
-
-//Display cards
-$('.start').click(function(){
- //on click of start button call the shuffle function to shuffle the array
-    shuffle(cards);
-    console.log(cards);
-//loop through each card and created its HTML
-//add each cards HTML to the page
+//wait for DOM to load then call reset for initial shuffle of cards
+$(function(){
+    reset();
 })
 
-
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
+function shuffle() {
+    var array = $('.deck li');
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -42,37 +15,76 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
-    return array;
+    //empties out the parent ul and then appends the new shuffled children
+    $('.deck').empty().append(array);
+    addCardClickHandlers();
 }
 
+function addCardClickHandlers(){
+    //setup event listener for when card is clicked
+    $('.deck li').click(function(){
+        if(openCards.length !== 2 && !$(this).hasClass('open')){
+            //call showSymbol function
+            showSymbol(this);
+            //call openCardList function
+            openCardList(this);
+        };
+    });
+};
 
-//setup event listener for when card is clicked
-$('li').click(function(){
-//call showSymbol function
-//call openCardList function
-
-})
-//display the cards symbol (maybe to this as a toggleClass?)
-function showSymbol(){
-
+//display the cards symbol (maybe this as a toggleClass?)
+function showSymbol(card){
+    $(card).addClass('show').addClass('open');
 }
 //add card to a list of open cards
 //if list already has another card check to see if the two cards match
-function openCardList(){
-//if cards match then call lockCards function and add the match class
-//if cards do not match then remove them from the list and call showSymbol function to hide symbol
-}
-//lock cards in an open postion if they match from the openCardsList
-function lockCards(){
+var openCards = [];
+var matches = 0;
+var moveCounter = 0;
 
+function openCardList(card){
+    $(card).find('i').attr('class').split(/\s+/).forEach(function(clz){
+        if(clz !== 'fa'){
+            openCards.push(clz);
+        };  
+    });
+    if(openCards.length === 2){
+        if(openCards[0] === openCards[1]){
+            $('.' + openCards[0]).parent('li').addClass('match');
+            matches += 1;
+            openCards = [];
+         } else {
+            window.setTimeout(function(){
+                openCards.forEach(function(clz){
+                    $('.'+ clz).parent('li').removeClass('show').removeClass('open');
+                    console.log(clz);
+                    openCards = [];
+                });
+            }, 2000);
+        } 
+        moveCounter += 1;
+    }
 }
 //increment move counter and display it on the page
-var moveCounter = 0;
 function counterDisplay(){
 
-}
-//if all cards match display a message with the final score
-function allMatched(){
 
 }
+//if all cards match display a message (modal) with the final score
+function allMatched(){
+    //stop timer
+
+}
+
+//set function for reset button
+function reset(){
+    //reset the board
+    shuffle();
+    $('deck li').removeClass('show').removeClass('match').removeClass('open');
+    moveCounter = 0;
+    matches = 0;
+}
+
+//timer
+
+
