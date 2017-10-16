@@ -101,10 +101,10 @@ h1 {
     list-style: none;
 }
 
-.score-panel .start {
+.score-panel .restart {
     cursor: pointer;
 }
 
-.score-panel .restart {
-    cursor: pointer;
+.stars li .hidden{
+    display: none;
 }

@@ -5,6 +5,8 @@
     <title>Matching Game</title>
     <meta name="description" content="">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
@@ -24,13 +26,19 @@
         	</ul>
 
             <div class="track">
-                <span class="moves">3</span> Moves
+                <span class="moves"></span> Moves
             </div>
 
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>
         </section>
+
+        <div id="dialog" title="Congratulations">
+            <p><span class="time"></span>Time to complete</p>
+            <p><span class="star-rate"></span>Star Rating</p>
+            <p>Would you Like to Play again?</p>
+        </div>
 
         <ul class="deck">
             <li class="card">
