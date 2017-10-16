@@ -90,8 +90,6 @@ function allMatched(){
     //if matches are equal to 8 then display modal
     if(matches === 8){
         //stop timer and record time 
-        //add time and star rating info to the dialog
-        //open dialog
         $('#dialog').dialog('open');
          //stop timer
     };
@@ -100,6 +98,8 @@ function allMatched(){
 //set up modal
 $( "#dialog" ).dialog({
     autoOpen: false,
+    modal: true,
+    show: { effect: "blind", duration: 800 },
     buttons: {
         Yes: function() {
             reset();
