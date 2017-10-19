@@ -1,6 +1,7 @@
 //wait for DOM to load then call reset for initial shuffle of cards
 $(function(){
     reset();
+    timer();
 })
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -24,8 +25,6 @@ function shuffle() {
 function addCardClickHandlers(){
     //setup event listener for when card is clicked
     $('.deck li').click(function(){
-        //start the timer function
-        timer()
         //looks at the cards length to determine if another card can be opened by checking length and class
         if(openCards.length !== 2 && !$(this).hasClass('open')){
             //call showSymbol function
@@ -89,9 +88,10 @@ function counterDisplay(){
 function allMatched(){
     //if matches are equal to 8 then display modal
     if(matches === 8){
-        //stop timer and record time 
+        //stop timer
+        stop();
+        //show dialog 
         $('#dialog').dialog('open');
-         //stop timer
     };
 };
 
@@ -110,21 +110,22 @@ $( "#dialog" ).dialog({
 
 //stars function tracks how many stars the player has
 function stars(){
-    switch(moveCounter){
-        //9 moves then start rating moves to 2 stars
-        case 9:
-        $('.stars li').find('i').eq(0).addClass('hidden');
-        break;
-        //16 moves and start rating moves to 1 star
-        case 16:
-        $('.stars li').find('i').eq(1).addClass('hidden');
-        break;
-        //24 moves and star rating is zero
-        case 24:
+    var star;
+    if(moveCounter >= 24){
         $('.stars li').find('i').eq(2).addClass('hidden');
-        break;
+        star = 0;
+    }else if(moveCounter === 16){
+        $('.stars li').find('i').eq(1).addClass('hidden')
+        star = 1;
+    }else if(moveCounter === 9){
+       $('.stars li').find('i').eq(0).addClass('hidden');
+        star = 2;
+    }else if (moveCounter <= 8){
+        star = 3;
     }
-};
+    //this is to put the star rating into the DOM for the dialog 
+    $('.star-rate').text(star);
+}
 
 //set function for reset button
 function reset(){
@@ -136,6 +137,8 @@ function reset(){
     matches = 0;
     //reset stars to 3
     $('.stars li').find('i').removeClass('hidden');
+    //reset timer();
+    clearInterval(timer);
 }
 
 //event listener for reset button
@@ -144,7 +147,26 @@ $('.restart').click(function(){
 })
 
 //timer
-function timer(){
 
-}
+function timer(){
+    var time = {
+        min: 0,
+        sec: 0
+    }
+    setInterval(getTime, 1000);
+
+ function getTime(){
+         time.sec++;
+        if(time.sec === 60){
+            time.min++
+            time.sec = 0;
+        }
+        var total = time.min + ":" + time.sec
+        $('.time').text(total);
+    };
+};
+
+    function stop(){
+        clearInterval(timer);
+    }
 
