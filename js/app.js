@@ -1,8 +1,9 @@
+"use strict";
 //wait for DOM to load then call reset for initial shuffle of cards
 $(function(){
     reset();
     timer();
-})
+});
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle() {
@@ -31,9 +32,9 @@ function addCardClickHandlers(){
             showSymbol(this);
             //call openCardList function
             openCardList(this);
-        };
+        }
     });
-};
+}
 
 //display the cards symbol
 function showSymbol(card){
@@ -51,7 +52,7 @@ function openCardList(card){
     $(card).find('i').attr('class').split(/\s+/).forEach(function(clz){
         if(clz !== 'fa'){
             openCards.push(clz);
-        };  
+        }
     });
     //if the cards array length is equal to two then check if index 0 and index 1 are a match
     if(openCards.length === 2){
@@ -71,7 +72,7 @@ function openCardList(card){
                     openCards = [];
                 });
             }, 1000);
-        } 
+        }
         //increment the moves counter and update the moves display and star display based off of the move counter
         moveCounter += 1;
         counterDisplay();
@@ -92,8 +93,8 @@ function allMatched(){
         stop();
         //show dialog 
         $('#dialog').dialog('open');
-    };
-};
+    }
+}
 
 //set up modal
 $( "#dialog" ).dialog({
@@ -123,7 +124,7 @@ function stars(){
     }else if (moveCounter <= 8){
         star = 3;
     }
-    //this is to put the star rating into the DOM for the dialog 
+    //this is to put the star rating into the DOM for the dialog
     $('.star-rate').text(star);
 }
 
@@ -142,31 +143,30 @@ function reset(){
 }
 
 //event listener for reset button
-$('.restart').click(function(){
+$('.restart').click(function () {
     reset();
-})
+});
 
 //timer
-
-function timer(){
+var interval;
+function timer() {
     var time = {
         min: 0,
         sec: 0
-    }
-    setInterval(getTime, 1000);
-
- function getTime(){
-         time.sec++;
-        if(time.sec === 60){
-            time.min++
+    };
+    var getTime = function () {
+        time.sec++;
+        if (time.sec === 60) {
+            time.min++;
             time.sec = 0;
         }
-        var total = time.min + ":" + time.sec
+        var total = time.min + ":" + time.sec;
         $('.time').text(total);
     };
-};
+    interval = window.setInterval(getTime, 1000);
+}
 
-    function stop(){
-        clearInterval(timer);
-    }
+function stop() {
+     window.clearInterval(interval);
+}
 
