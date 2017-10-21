@@ -114,10 +114,7 @@ $( "#dialog" ).dialog({
 //stars function tracks how many stars the player has
 function stars(){
     var star;
-    if (moveCounter >= 24) {
-        $('.stars li').find('i').eq(2).addClass('hidden');
-        star = 0;
-    } else if (moveCounter === 16) {
+    if (moveCounter === 16) {
         $('.stars li').find('i').eq(1).addClass('hidden');
         star = 1;
     } else if (moveCounter === 9) {
