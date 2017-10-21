@@ -159,6 +159,9 @@ function timer() {
             time.min++;
             time.sec = 0;
         }
+        if (time.sec < 10 ){
+            time.sec = "0" + time.sec;
+        }
         var total = time.min + ":" + time.sec;
         $('.time').text(total);
     };
