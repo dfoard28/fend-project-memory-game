@@ -1,7 +1,8 @@
 "use strict";
 //wait for DOM to load then call reset for initial shuffle of cards and start timer
 $(function () {
-    reset();
+    //reset();
+    shuffle();
     timer();
 });
 
@@ -138,7 +139,8 @@ function reset() {
     //reset stars to 3
     $('.stars li').find('i').removeClass('hidden');
     //reset timer();
-    stop();
+    stop()
+    timer();
 }
 
 //event listener for reset button
@@ -159,7 +161,7 @@ function timer() {
             time.min++;
             time.sec = 0;
         }
-        if (time.sec < 10 ){
+        if (time.sec < 10) {
             time.sec = "0" + time.sec;
         }
         var total = time.min + ":" + time.sec;
@@ -169,6 +171,6 @@ function timer() {
 }
 
 function stop() {
-     window.clearInterval(interval);
+    window.clearInterval(interval);
 }
 
